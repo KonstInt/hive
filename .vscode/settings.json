@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
+        "Hani",
         "lerp",
         "screenutil"
-    ]
+    ],
+    "cmake.configureOnOpen": false
 }
