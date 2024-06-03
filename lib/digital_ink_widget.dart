@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart' hide Ink;
 import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart';
+import 'package:hive/src/features/digital_ink_ml_recognizer/domain/models/enums/languages_digital_ink_enum.dart';
+import 'package:hive/src/features/digital_ink_ml_recognizer/presentation/recognize_screen.dart';
 
 class InkRecognitionWidget extends StatefulWidget {
   final String languageCode;
   final String correctAnswer;
 
   const InkRecognitionWidget({
-    Key? key,
+    super.key,
     required this.languageCode,
     required this.correctAnswer,
-  }) : super(key: key);
+  });
 
   @override
   State<InkRecognitionWidget> createState() => _InkRecognitionWidgetState();
@@ -42,16 +44,8 @@ class _InkRecognitionWidgetState extends State<InkRecognitionWidget> {
     recognizedText = await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Recognize Ink'),
-          content: const Text('This is a stub for ink recognition.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'a'),
-              child: const Text('OK'),
-            ),
-          ],
-        );
+        return RecognizeScreen(
+            data: ink, language: LanguagesDigitalInlEnum.zhHani);
       },
     );
 
@@ -67,45 +61,57 @@ class _InkRecognitionWidgetState extends State<InkRecognitionWidget> {
       children: [
         Stack(
           children: [
-            Container(
-              width: double.infinity,
-              height: 200,
-              color: Colors.white,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return GestureDetector(
-                    onPanStart: (DragStartDetails details) {
-                      ink.strokes.add(Stroke());
-                    },
-                    onPanUpdate: (DragUpdateDetails details) {
-                      setState(() {
-                        final RenderObject? object = context.findRenderObject();
-                        final localPosition = (object as RenderBox?)
-                            ?.globalToLocal(details.localPosition);
-                        if (localPosition != null) {
-                          points = List.from(points)
-                            ..add(StrokePoint(
-                              x: localPosition.dx,
-                              y: localPosition.dy,
-                              t: DateTime.now().millisecondsSinceEpoch,
-                            ));
-                        }
-                        if (ink.strokes.isNotEmpty) {
-                          ink.strokes.last.points = points.toList();
-                        }
-                      });
-                    },
-                    onPanEnd: (DragEndDetails details) {
-                      points.clear();
-                      setState(() {});
-                    },
-                    child: CustomPaint(
-                      size: Size(constraints.maxWidth, constraints.maxHeight),
-                      painter: InkPainter(ink: ink),
-                     
-                    ),
-                  );
-                }
+            ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                showResult
+                    ? isCorrect
+                        ? Colors.green.withOpacity(0.3)
+                        : Colors.red.withOpacity(0.3)
+                    : Colors.transparent,
+                BlendMode.srcATop,
+              ),
+              child: Container(
+                width: double.infinity,
+                height: 200,
+                color: Colors.white,
+                child: LayoutBuilder(
+                  builder: (context, constr) {
+                    return GestureDetector(
+                      onPanStart: (DragStartDetails details) {
+                        ink.strokes.add(Stroke());
+                      },
+                      onPanUpdate: (DragUpdateDetails details) {
+                        setState(() {
+                          final localPosition = details.localPosition;
+
+                          // Проверка на границы контейнера
+                          if (localPosition.dx >= 0 &&
+                              localPosition.dx <= constr.maxWidth &&
+                              localPosition.dy >= 0 &&
+                              localPosition.dy <= constr.maxHeight) {
+                            points = List.from(points)
+                              ..add(StrokePoint(
+                                x: localPosition.dx,
+                                y: localPosition.dy,
+                                t: DateTime.now().millisecondsSinceEpoch,
+                              ));
+                            if (ink.strokes.isNotEmpty) {
+                              ink.strokes.last.points = points.toList();
+                            }
+                          }
+                        });
+                      },
+                      onPanEnd: (DragEndDetails details) {
+                        points.clear();
+                        setState(() {});
+                      },
+                      child: CustomPaint(
+                        painter: InkPainter(ink: ink),
+                        child: Container(),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Positioned(
@@ -116,16 +122,6 @@ class _InkRecognitionWidgetState extends State<InkRecognitionWidget> {
                 onPressed: showResult ? null : _clearInk,
               ),
             ),
-            if (showResult)
-              Positioned.fill(
-                child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(
-                    isCorrect ? Colors.green.withOpacity(0.3) : Colors.red.withOpacity(0.3),
-                    BlendMode.srcATop,
-                  ),
-                  child: Container(color: Colors.transparent),
-                ),
-              ),
           ],
         ),
         if (showResult && !isCorrect)
@@ -133,7 +129,8 @@ class _InkRecognitionWidgetState extends State<InkRecognitionWidget> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Correct Answer: ${widget.correctAnswer}',
-              style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.bold),
             ),
           ),
         Padding(

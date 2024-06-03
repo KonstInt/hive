@@ -1,13 +1,28 @@
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/firebase_options.dart';
 import 'package:hive/src/util/di/injectable.dart';
 import 'package:hive/src/util/router/router.dart';
 import 'package:hive/src/util/themes/app_theme.dart';
 
-void main() {
+void main() async {
   configureDependencies();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  
   runApp(const MyApp());
 }
 

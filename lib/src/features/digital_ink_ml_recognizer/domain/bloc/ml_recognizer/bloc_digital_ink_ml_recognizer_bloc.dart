@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart';
 import 'package:hive/src/features/digital_ink_ml_recognizer/data/repository/digital_ink_ml_recognizer_repository.dart';
@@ -25,6 +26,15 @@ class BlocDigitalInkMlRecognizerBloc extends Bloc<
       _Recognize event, Emitter<BlocDigitalInkMlRecognizerState> emit) async {
     emit(const BlocDigitalInkMlRecognizerState.loading());
     try {
+      await FirebaseFirestore.instance
+          .collection('tasksMeta')
+          .doc("newUser.id")
+          .set({'qwert':'y'});
+      // final snapshotMeta = await FirebaseFirestore.instance
+      //     .collection('tasksMeta')
+      //     .doc('oooL'); //.set(answer.toJson());
+      //final id =    snapshotMeta.id;
+      //await snapshotMeta.set({'id':id});
       final result = await repository.recognizeText(
           SendDigitalInkModel(data: event.data, language: event.language));
       result.sort((first, second) => first.score.compareTo(second.score));

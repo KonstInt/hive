@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SingleQuizWidget extends StatefulWidget {
   final List<Widget> options;
   final int correctIndex;

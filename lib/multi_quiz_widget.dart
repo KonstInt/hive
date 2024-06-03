@@ -6,11 +6,11 @@ class MultiQuizWidget extends StatefulWidget {
   final Function({required List<int> selectedIndexes}) callback;
 
   const MultiQuizWidget({
-    Key? key,
+    super.key,
     required this.options,
     required this.correctIndexes,
     required this.callback,
-  }) : super(key: key);
+  });
 
   @override
   State<MultiQuizWidget> createState() => _MultiQuizWidgetState();
@@ -48,8 +48,9 @@ class _MultiQuizWidgetState extends State<MultiQuizWidget>
   }
 
   void _onConfirm() {
-    bool isCorrect = selectedOptions.toSet().containsAll(widget.correctIndexes) &&
-                     widget.correctIndexes.toSet().containsAll(selectedOptions);
+    bool isCorrect =
+        selectedOptions.toSet().containsAll(widget.correctIndexes) &&
+            widget.correctIndexes.toSet().containsAll(selectedOptions);
     if (!isCorrect) {
       _controller.forward();
     }
@@ -72,7 +73,9 @@ class _MultiQuizWidgetState extends State<MultiQuizWidget>
             child: AnimatedBuilder(
               animation: _controller,
               builder: (context, child) {
-                double offset = showResults && !widget.correctIndexes.contains(index) && selectedOptions.contains(index)
+                double offset = showResults &&
+                        !widget.correctIndexes.contains(index) &&
+                        selectedOptions.contains(index)
                     ? _shakeAnimation.value
                     : 0;
 
@@ -80,15 +83,20 @@ class _MultiQuizWidgetState extends State<MultiQuizWidget>
                 if (showResults) {
                   if (selectedOptions.contains(index)) {
                     colorFilter = widget.correctIndexes.contains(index)
-                        ? ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.srcATop)
-                        : ColorFilter.mode(Colors.red.withOpacity(0.3), BlendMode.srcATop);
+                        ? ColorFilter.mode(
+                            Colors.green.withOpacity(0.3), BlendMode.srcATop)
+                        : ColorFilter.mode(
+                            Colors.red.withOpacity(0.3), BlendMode.srcATop);
                   } else {
-                    colorFilter = const ColorFilter.mode(Colors.transparent, BlendMode.multiply);
+                    colorFilter = const ColorFilter.mode(
+                        Colors.transparent, BlendMode.multiply);
                   }
                 } else {
                   colorFilter = selectedOptions.contains(index)
-                      ? ColorFilter.mode(Colors.grey.withOpacity(0.3), BlendMode.srcATop)
-                      : const ColorFilter.mode(Colors.transparent, BlendMode.multiply);
+                      ? ColorFilter.mode(
+                          Colors.grey.withOpacity(0.3), BlendMode.srcATop)
+                      : const ColorFilter.mode(
+                          Colors.transparent, BlendMode.multiply);
                 }
 
                 return Transform.translate(
@@ -112,9 +120,12 @@ class _MultiQuizWidgetState extends State<MultiQuizWidget>
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: showResults && selectedOptions.contains(index)
-                                ? (widget.correctIndexes.contains(index) ? Colors.green : Colors.red)
-                                : Colors.grey,
+                            color:
+                                showResults && selectedOptions.contains(index)
+                                    ? (widget.correctIndexes.contains(index)
+                                        ? Colors.green
+                                        : Colors.red)
+                                    : Colors.grey,
                           ),
                         ),
                         child: ListTile(
@@ -141,7 +152,7 @@ class _MultiQuizWidgetState extends State<MultiQuizWidget>
               },
             ),
           );
-        }).toList(),
+        }),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: ElevatedButton(

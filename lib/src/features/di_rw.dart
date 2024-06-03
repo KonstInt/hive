@@ -226,7 +226,6 @@ class _DigitalInkViewState extends State<DigitalInkView> {
 
 class Signature extends CustomPainter {
   Ink ink;
-
   Signature({required this.ink});
 
   @override
