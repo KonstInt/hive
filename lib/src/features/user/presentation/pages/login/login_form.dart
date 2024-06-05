@@ -12,7 +12,6 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isFailure && state.errorMessage != null) {
@@ -28,17 +27,18 @@ class LoginForm extends StatelessWidget {
       child: Align(
         alignment: const Alignment(0, -1 / 3),
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const LoginAppBar(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               _EmailInput(),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               _PasswordInput(),
-              const SizedBox(height: 8),
+              const SizedBox(height: 24),
               _LoginButton(),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               _SignUpButton(),
             ],
           ),
@@ -61,19 +61,23 @@ class _EmailInput extends StatelessWidget {
               .add(LoginEvent.emailChanged(newEmail: email)),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-              labelText: 'email',
-              helperText: '',
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: context.colors.black),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: context.colors.blueTooth),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: context.colors.mario),
-              ),
-              labelStyle: context.textStyles.smallM
-                  .copyWith(color: context.colors.black)),
+            labelText: 'Email',
+            helperText: '',
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: context.colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.black),
+          ),
         );
       },
     );
@@ -93,19 +97,23 @@ class _PasswordInput extends StatelessWidget {
               .add(LoginEvent.passwordChanged(newPassword: password)),
           obscureText: true,
           decoration: InputDecoration(
-              labelText: 'password',
-              helperText: '',
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: context.colors.black),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: context.colors.blueTooth),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: context.colors.mario),
-              ),
-              labelStyle: context.textStyles.smallM
-                  .copyWith(color: context.colors.black)),
+            labelText: 'Password',
+            helperText: '',
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: context.colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.black),
+          ),
         );
       },
     );
@@ -118,34 +126,30 @@ class _LoginButton extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == FormzSubmissionStatus.success) {
-          context.go('/map');
+          context.go('/home');
         }
       },
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
-            : SimpleForwardButton(
-                titleButton: 'login',
-                onTap: () => state.isValid
-                    ? context
+            : ElevatedButton(
+                key: const Key('loginForm_continue_raisedButton'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: context.colors.inverseText,
+                  disabledBackgroundColor: context.colors.disabled,
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onPressed: state.isValid
+                    ? () => context
                         .read<LoginBloc>()
                         .add(LoginEvent.logInWithCredentials())
-                    : null);
-        // ElevatedButton(
-        //     key: const Key('loginForm_continue_raisedButton'),
-        //     style: ElevatedButton.styleFrom(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(30),
-        //       ),
-        //       backgroundColor: const Color(0xFFFFD600),
-        //     ),
-        //     onPressed: state.isValid
-        //         ? () => context
-        //             .read<LoginBloc>()
-        //             .add(LoginEvent.logInWithCredentials())
-        //         : null,
-        //     child: Text(l10n.login),
-        //   );
+                    : null,
+                child: Text('Войти', style: context.textStyles.bodyM),
+              );
       },
     );
   }
@@ -160,8 +164,34 @@ class _SignUpButton extends StatelessWidget {
         context.go('/login/sign_up');
       },
       child: Text(
-        'create account',
-        style: context.textStyles.bodyM.copyWith(color: context.colors.black),
+        'Создать аккаунт',
+        style: context.textStyles.bodyM.copyWith(color: context.colors.blueTooth),
+      ),
+    );
+  }
+}
+
+class LoginAppBar extends StatelessWidget {
+  const LoginAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 4,
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.lock,
+            size: 100,
+            color: context.colors.blueTooth,
+          ),
+          Text(
+            'Вход',
+            style: context.textStyles.headlineB,
+          ),
+        ],
       ),
     );
   }

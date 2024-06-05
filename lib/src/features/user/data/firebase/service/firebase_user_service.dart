@@ -9,7 +9,6 @@ import 'package:hive/src/features/user/data/firebase/models/user/firebase_api_us
 import 'package:hive/src/features/user/domain/exceptions/eceptions.dart';
 import 'package:injectable/injectable.dart';
 
-
 @singleton
 class FirebaseUserService {
   Future<FirebaseApiUserModel> getUser(String userId) async {
@@ -83,7 +82,7 @@ class FirebaseUserService {
         email: login,
         password: password,
       );
-      final String? token = credential.user!.uid;
+      final String token = credential.user!.uid;
       final snapshot =
           await FirebaseFirestore.instance.collection('users').doc(token).get();
       final user = FirebaseApiUserModel.fromJson(snapshot.data()!);

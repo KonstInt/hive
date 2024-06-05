@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ void main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-  
+
   runApp(const MyApp());
 }
 
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.lightTheme,
               debugShowCheckedModeBanner: false,
               darkTheme: AppTheme.darkTheme,
-              routerConfig: GetIt.I<RoutingService>().router,
+              routerConfig: GetIt.I<RoutingService>().goRouter,
             ),
             context: context,
           ),

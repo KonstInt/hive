@@ -6,7 +6,12 @@ part 'course_test_task_meta.freezed.dart';
 
 @freezed
 abstract class CourseTestTaskMeta with _$CourseTestTaskMeta {
-   factory CourseTestTaskMeta.digitalInk({required Ink ink, required String recognition}) = _CourseTestTaskMetaDigitalInk;
-   factory CourseTestTaskMeta.quiz({required CourseTestTaskAnswer answer}) = _CourseTestTaskMetaQuiz;
-   factory CourseTestTaskMeta.quizMultipleChoice({required List<CourseTestTaskAnswer> answer}) = _CourseTestTaskMetaQuizMultipleChoice;
+  factory CourseTestTaskMeta.digitalInk(
+      {required Ink ink,
+      required String recognition}) = _CourseTestTaskMetaDigitalInk;
+  factory CourseTestTaskMeta.quiz({required CourseTestTaskAnswer answer}) =
+      _CourseTestTaskMetaQuiz;
+  factory CourseTestTaskMeta.quizMultipleChoice(
+          {required List<CourseTestTaskAnswer> answer}) =
+      _CourseTestTaskMetaQuizMultipleChoice;
 }

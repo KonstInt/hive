@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:hive/src/features/user/data/firebase/util/firebase_user_util.dart';
 import 'package:hive/src/features/user/domain/models/user/user_model.dart';
 import 'package:hive/src/features/user/domain/repository/remote_user_repository.dart';
-import 'package:hive/src/use_cases/user_use_case/models/user_model.dart';
 import 'package:hive/src/use_cases/user_use_case/user_use_case.dart';
 import 'package:injectable/injectable.dart';
 

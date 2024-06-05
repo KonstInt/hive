@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:hive/digital_ink_widget.dart';
+import 'package:hive/src/features/course_task/presentation/screen/common/digital_ink_widget.dart';
+import 'package:hive/src/features/course_task/presentation/screen/task_provided_screen.dart';
+import 'package:hive/tmp/my_courses_screen.dart';
 
 class TestWidget extends StatelessWidget {
   const TestWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
-          child:
+          child:UserCoursesScreen())
               // DrawingWidget()
-              Column(
-        children: [
-          SizedBox(
-            height: 100,
-          ),
-          InkRecognitionWidget(
-            languageCode: 'en',
-            correctAnswer: 'a',
-          ),
-        ],
-      )),
+              // SingleChildScrollView(
+              //   child: 
+              //   //TaskProvidedScreen(taskId: '123', meta: null),
+                
+              // )),
       // body: MultiQuizWidget(
       //   options: [
       //     const Text('Option 1'),

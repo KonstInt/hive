@@ -16,19 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ProgressSavingEvent {
+  CourseTestTaskMeta get answer => throw _privateConstructorUsedError;
+  CourseTestTask get task => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() save,
+    required TResult Function(CourseTestTaskMeta answer, CourseTestTask task)
+        save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? save,
+    TResult? Function(CourseTestTaskMeta answer, CourseTestTask task)? save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? save,
+    TResult Function(CourseTestTaskMeta answer, CourseTestTask task)? save,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +51,10 @@ mixin _$ProgressSavingEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ProgressSavingEventCopyWith<ProgressSavingEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +62,11 @@ abstract class $ProgressSavingEventCopyWith<$Res> {
   factory $ProgressSavingEventCopyWith(
           ProgressSavingEvent value, $Res Function(ProgressSavingEvent) then) =
       _$ProgressSavingEventCopyWithImpl<$Res, ProgressSavingEvent>;
+  @useResult
+  $Res call({CourseTestTaskMeta answer, CourseTestTask task});
+
+  $CourseTestTaskMetaCopyWith<$Res> get answer;
+  $CourseTestTaskCopyWith<$Res> get task;
 }
 
 /// @nodoc
@@ -66,13 +78,56 @@ class _$ProgressSavingEventCopyWithImpl<$Res, $Val extends ProgressSavingEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? answer = null,
+    Object? task = null,
+  }) {
+    return _then(_value.copyWith(
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as CourseTestTaskMeta,
+      task: null == task
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as CourseTestTask,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CourseTestTaskMetaCopyWith<$Res> get answer {
+    return $CourseTestTaskMetaCopyWith<$Res>(_value.answer, (value) {
+      return _then(_value.copyWith(answer: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CourseTestTaskCopyWith<$Res> get task {
+    return $CourseTestTaskCopyWith<$Res>(_value.task, (value) {
+      return _then(_value.copyWith(task: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$SaveImplCopyWith<$Res> {
+abstract class _$$SaveImplCopyWith<$Res>
+    implements $ProgressSavingEventCopyWith<$Res> {
   factory _$$SaveImplCopyWith(
           _$SaveImpl value, $Res Function(_$SaveImpl) then) =
       __$$SaveImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({CourseTestTaskMeta answer, CourseTestTask task});
+
+  @override
+  $CourseTestTaskMetaCopyWith<$Res> get answer;
+  @override
+  $CourseTestTaskCopyWith<$Res> get task;
 }
 
 /// @nodoc
@@ -81,51 +136,93 @@ class __$$SaveImplCopyWithImpl<$Res>
     implements _$$SaveImplCopyWith<$Res> {
   __$$SaveImplCopyWithImpl(_$SaveImpl _value, $Res Function(_$SaveImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? answer = null,
+    Object? task = null,
+  }) {
+    return _then(_$SaveImpl(
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as CourseTestTaskMeta,
+      task: null == task
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as CourseTestTask,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$SaveImpl implements _Save {
-  const _$SaveImpl();
+class _$SaveImpl with DiagnosticableTreeMixin implements _Save {
+  const _$SaveImpl({required this.answer, required this.task});
 
   @override
-  String toString() {
-    return 'ProgressSavingEvent.save()';
+  final CourseTestTaskMeta answer;
+  @override
+  final CourseTestTask task;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProgressSavingEvent.save(answer: $answer, task: $task)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProgressSavingEvent.save'))
+      ..add(DiagnosticsProperty('answer', answer))
+      ..add(DiagnosticsProperty('task', task));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SaveImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SaveImpl &&
+            (identical(other.answer, answer) || other.answer == answer) &&
+            (identical(other.task, task) || other.task == task));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, answer, task);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SaveImplCopyWith<_$SaveImpl> get copyWith =>
+      __$$SaveImplCopyWithImpl<_$SaveImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() save,
+    required TResult Function(CourseTestTaskMeta answer, CourseTestTask task)
+        save,
   }) {
-    return save();
+    return save(answer, task);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? save,
+    TResult? Function(CourseTestTaskMeta answer, CourseTestTask task)? save,
   }) {
-    return save?.call();
+    return save?.call(answer, task);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? save,
+    TResult Function(CourseTestTaskMeta answer, CourseTestTask task)? save,
     required TResult orElse(),
   }) {
     if (save != null) {
-      return save();
+      return save(answer, task);
     }
     return orElse();
   }
@@ -160,7 +257,18 @@ class _$SaveImpl implements _Save {
 }
 
 abstract class _Save implements ProgressSavingEvent {
-  const factory _Save() = _$SaveImpl;
+  const factory _Save(
+      {required final CourseTestTaskMeta answer,
+      required final CourseTestTask task}) = _$SaveImpl;
+
+  @override
+  CourseTestTaskMeta get answer;
+  @override
+  CourseTestTask get task;
+  @override
+  @JsonKey(ignore: true)
+  _$$SaveImplCopyWith<_$SaveImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -253,12 +361,18 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ProgressSavingState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ProgressSavingState.initial'));
   }
 
   @override
@@ -367,12 +481,18 @@ class __$$SavingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SavingImpl implements _Saving {
+class _$SavingImpl with DiagnosticableTreeMixin implements _Saving {
   const _$SavingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ProgressSavingState.saving()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ProgressSavingState.saving'));
   }
 
   @override
@@ -481,12 +601,18 @@ class __$$SavedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SavedImpl implements _Saved {
+class _$SavedImpl with DiagnosticableTreeMixin implements _Saved {
   const _$SavedImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ProgressSavingState.saved()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ProgressSavingState.saved'));
   }
 
   @override
@@ -595,12 +721,18 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ProgressSavingState.error()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ProgressSavingState.error'));
   }
 
   @override

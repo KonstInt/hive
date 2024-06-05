@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/src/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:hive/src/features/user/presentation/pages/signup/signup_form1.dart';
 import 'package:hive/src/features/user/presentation/pages/signup/signup_form2.dart';
+import 'package:hive/src/util/themes/extensions/build_context_ext.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -12,7 +13,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //di
     return Scaffold(
-      appBar: AppBar(title: Text('signUp')),
+      appBar: AppBar(iconTheme: IconThemeData(color: context.colors.baseText),backgroundColor: Colors.transparent,),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider<SignUpBloc>.value(

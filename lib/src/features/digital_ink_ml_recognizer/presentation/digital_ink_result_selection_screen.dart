@@ -92,7 +92,7 @@ class _DigitalInkResultSelectionScreenState
                       return ListTile(
                         title: Text(
                           option,
-                          style: context.textStyles.smallM,
+                          style: context.textStyles.smallM.copyWith(color: context.colors.baseText)
                         ),
                         onTap: () => selectOption(option, index),
                       );
@@ -110,7 +110,7 @@ class _DigitalInkResultSelectionScreenState
             child: SimpleForwardButton(
                 titleButton: "Ok",
                 onTap: () {
-                  context.pop();
+                  context.pop(selectedOption);
                 }),
           ),
           SizedBox(

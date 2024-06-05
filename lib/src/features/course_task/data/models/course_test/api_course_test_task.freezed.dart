@@ -32,12 +32,14 @@ ApiCourseTestTask _$ApiCourseTestTaskFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ApiCourseTestTask {
   String get id => throw _privateConstructorUsedError;
+  double get scores => throw _privateConstructorUsedError;
   ApiCourseTestTaskQuestion get question => throw _privateConstructorUsedError;
   ApiCourseTestTaskMeta? get meta => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -45,6 +47,7 @@ mixin _$ApiCourseTestTask {
         quizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -52,6 +55,7 @@ mixin _$ApiCourseTestTask {
         multiChoiceQuizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -63,6 +67,7 @@ mixin _$ApiCourseTestTask {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -70,6 +75,7 @@ mixin _$ApiCourseTestTask {
         quizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -77,6 +83,7 @@ mixin _$ApiCourseTestTask {
         multiChoiceQuizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -88,6 +95,7 @@ mixin _$ApiCourseTestTask {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -95,6 +103,7 @@ mixin _$ApiCourseTestTask {
         quizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -102,6 +111,7 @@ mixin _$ApiCourseTestTask {
         multiChoiceQuizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -149,6 +159,7 @@ abstract class $ApiCourseTestTaskCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      double scores,
       ApiCourseTestTaskQuestion question,
       ApiCourseTestTaskMeta? meta});
 
@@ -170,6 +181,7 @@ class _$ApiCourseTestTaskCopyWithImpl<$Res, $Val extends ApiCourseTestTask>
   @override
   $Res call({
     Object? id = null,
+    Object? scores = null,
     Object? question = null,
     Object? meta = freezed,
   }) {
@@ -178,6 +190,10 @@ class _$ApiCourseTestTaskCopyWithImpl<$Res, $Val extends ApiCourseTestTask>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      scores: null == scores
+          ? _value.scores
+          : scores // ignore: cast_nullable_to_non_nullable
+              as double,
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
@@ -221,6 +237,7 @@ abstract class _$$ApiCourseTestTaskQuizTypedImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      double scores,
       ApiCourseTestTaskQuestion question,
       List<ApiCourseTestTaskAnswer> answers,
       ApiCourseTestTaskAnswer rightAnswer,
@@ -247,6 +264,7 @@ class __$$ApiCourseTestTaskQuizTypedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? scores = null,
     Object? question = null,
     Object? answers = null,
     Object? rightAnswer = null,
@@ -257,6 +275,10 @@ class __$$ApiCourseTestTaskQuizTypedImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      scores: null == scores
+          ? _value.scores
+          : scores // ignore: cast_nullable_to_non_nullable
+              as double,
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
@@ -286,10 +308,12 @@ class __$$ApiCourseTestTaskQuizTypedImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
   _$ApiCourseTestTaskQuizTypedImpl(
       {required this.id,
+      required this.scores,
       required this.question,
       required final List<ApiCourseTestTaskAnswer> answers,
       required this.rightAnswer,
@@ -304,6 +328,8 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
 
   @override
   final String id;
+  @override
+  final double scores;
   @override
   final ApiCourseTestTaskQuestion question;
   final List<ApiCourseTestTaskAnswer> _answers;
@@ -324,7 +350,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
 
   @override
   String toString() {
-    return 'ApiCourseTestTask.quizTyped(id: $id, question: $question, answers: $answers, rightAnswer: $rightAnswer, meta: $meta)';
+    return 'ApiCourseTestTask.quizTyped(id: $id, scores: $scores, question: $question, answers: $answers, rightAnswer: $rightAnswer, meta: $meta)';
   }
 
   @override
@@ -333,6 +359,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         (other.runtimeType == runtimeType &&
             other is _$ApiCourseTestTaskQuizTypedImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.scores, scores) || other.scores == scores) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
@@ -343,7 +370,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, question,
+  int get hashCode => Object.hash(runtimeType, id, scores, question,
       const DeepCollectionEquality().hash(_answers), rightAnswer, meta);
 
   @JsonKey(ignore: true)
@@ -358,6 +385,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
   TResult when<TResult extends Object?>({
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -365,6 +393,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         quizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -372,13 +401,14 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         multiChoiceQuizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
             ApiCourseTestTaskMeta? meta)
         digitalInk,
   }) {
-    return quizTyped(id, question, answers, rightAnswer, meta);
+    return quizTyped(id, scores, question, answers, rightAnswer, meta);
   }
 
   @override
@@ -386,6 +416,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -393,6 +424,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         quizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -400,13 +432,14 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         multiChoiceQuizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
             ApiCourseTestTaskMeta? meta)?
         digitalInk,
   }) {
-    return quizTyped?.call(id, question, answers, rightAnswer, meta);
+    return quizTyped?.call(id, scores, question, answers, rightAnswer, meta);
   }
 
   @override
@@ -414,6 +447,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -421,6 +455,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         quizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -428,6 +463,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
         multiChoiceQuizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -436,7 +472,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
     required TResult orElse(),
   }) {
     if (quizTyped != null) {
-      return quizTyped(id, question, answers, rightAnswer, meta);
+      return quizTyped(id, scores, question, answers, rightAnswer, meta);
     }
     return orElse();
   }
@@ -489,6 +525,7 @@ class _$ApiCourseTestTaskQuizTypedImpl implements _ApiCourseTestTaskQuizTyped {
 abstract class _ApiCourseTestTaskQuizTyped implements ApiCourseTestTask {
   factory _ApiCourseTestTaskQuizTyped(
       {required final String id,
+      required final double scores,
       required final ApiCourseTestTaskQuestion question,
       required final List<ApiCourseTestTaskAnswer> answers,
       required final ApiCourseTestTaskAnswer rightAnswer,
@@ -499,6 +536,8 @@ abstract class _ApiCourseTestTaskQuizTyped implements ApiCourseTestTask {
 
   @override
   String get id;
+  @override
+  double get scores;
   @override
   ApiCourseTestTaskQuestion get question;
   List<ApiCourseTestTaskAnswer> get answers;
@@ -522,6 +561,7 @@ abstract class _$$ApiCourseTestTaskMultiChoiceQuizTypedImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      double scores,
       ApiCourseTestTaskQuestion question,
       List<ApiCourseTestTaskAnswer> answers,
       List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -547,6 +587,7 @@ class __$$ApiCourseTestTaskMultiChoiceQuizTypedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? scores = null,
     Object? question = null,
     Object? answers = null,
     Object? rightAnswers = null,
@@ -557,6 +598,10 @@ class __$$ApiCourseTestTaskMultiChoiceQuizTypedImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      scores: null == scores
+          ? _value.scores
+          : scores // ignore: cast_nullable_to_non_nullable
+              as double,
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
@@ -578,11 +623,13 @@ class __$$ApiCourseTestTaskMultiChoiceQuizTypedImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
     implements _ApiCourseTestTaskMultiChoiceQuizTyped {
   _$ApiCourseTestTaskMultiChoiceQuizTypedImpl(
       {required this.id,
+      required this.scores,
       required this.question,
       required final List<ApiCourseTestTaskAnswer> answers,
       required final List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -598,6 +645,8 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
 
   @override
   final String id;
+  @override
+  final double scores;
   @override
   final ApiCourseTestTaskQuestion question;
   final List<ApiCourseTestTaskAnswer> _answers;
@@ -624,7 +673,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
 
   @override
   String toString() {
-    return 'ApiCourseTestTask.multiChoiceQuizTyped(id: $id, question: $question, answers: $answers, rightAnswers: $rightAnswers, meta: $meta)';
+    return 'ApiCourseTestTask.multiChoiceQuizTyped(id: $id, scores: $scores, question: $question, answers: $answers, rightAnswers: $rightAnswers, meta: $meta)';
   }
 
   @override
@@ -633,6 +682,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         (other.runtimeType == runtimeType &&
             other is _$ApiCourseTestTaskMultiChoiceQuizTypedImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.scores, scores) || other.scores == scores) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
@@ -646,6 +696,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      scores,
       question,
       const DeepCollectionEquality().hash(_answers),
       const DeepCollectionEquality().hash(_rightAnswers),
@@ -664,6 +715,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
   TResult when<TResult extends Object?>({
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -671,6 +723,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         quizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -678,13 +731,15 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         multiChoiceQuizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
             ApiCourseTestTaskMeta? meta)
         digitalInk,
   }) {
-    return multiChoiceQuizTyped(id, question, answers, rightAnswers, meta);
+    return multiChoiceQuizTyped(
+        id, scores, question, answers, rightAnswers, meta);
   }
 
   @override
@@ -692,6 +747,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -699,6 +755,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         quizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -706,6 +763,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         multiChoiceQuizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -713,7 +771,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         digitalInk,
   }) {
     return multiChoiceQuizTyped?.call(
-        id, question, answers, rightAnswers, meta);
+        id, scores, question, answers, rightAnswers, meta);
   }
 
   @override
@@ -721,6 +779,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -728,6 +787,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         quizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -735,6 +795,7 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
         multiChoiceQuizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -743,7 +804,8 @@ class _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
     required TResult orElse(),
   }) {
     if (multiChoiceQuizTyped != null) {
-      return multiChoiceQuizTyped(id, question, answers, rightAnswers, meta);
+      return multiChoiceQuizTyped(
+          id, scores, question, answers, rightAnswers, meta);
     }
     return orElse();
   }
@@ -797,6 +859,7 @@ abstract class _ApiCourseTestTaskMultiChoiceQuizTyped
     implements ApiCourseTestTask {
   factory _ApiCourseTestTaskMultiChoiceQuizTyped(
           {required final String id,
+          required final double scores,
           required final ApiCourseTestTaskQuestion question,
           required final List<ApiCourseTestTaskAnswer> answers,
           required final List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -809,6 +872,8 @@ abstract class _ApiCourseTestTaskMultiChoiceQuizTyped
 
   @override
   String get id;
+  @override
+  double get scores;
   @override
   ApiCourseTestTaskQuestion get question;
   List<ApiCourseTestTaskAnswer> get answers;
@@ -833,6 +898,7 @@ abstract class _$$ApiCourseTestTaskDigitalInkImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      double scores,
       ApiCourseTestTaskQuestion question,
       String rightAnswer,
       String languageCode,
@@ -858,6 +924,7 @@ class __$$ApiCourseTestTaskDigitalInkImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? scores = null,
     Object? question = null,
     Object? rightAnswer = null,
     Object? languageCode = null,
@@ -868,6 +935,10 @@ class __$$ApiCourseTestTaskDigitalInkImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      scores: null == scores
+          ? _value.scores
+          : scores // ignore: cast_nullable_to_non_nullable
+              as double,
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
@@ -889,11 +960,13 @@ class __$$ApiCourseTestTaskDigitalInkImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ApiCourseTestTaskDigitalInkImpl
     implements _ApiCourseTestTaskDigitalInk {
   _$ApiCourseTestTaskDigitalInkImpl(
       {required this.id,
+      required this.scores,
       required this.question,
       required this.rightAnswer,
       required this.languageCode,
@@ -908,6 +981,8 @@ class _$ApiCourseTestTaskDigitalInkImpl
   @override
   final String id;
   @override
+  final double scores;
+  @override
   final ApiCourseTestTaskQuestion question;
   @override
   final String rightAnswer;
@@ -921,7 +996,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
 
   @override
   String toString() {
-    return 'ApiCourseTestTask.digitalInk(id: $id, question: $question, rightAnswer: $rightAnswer, languageCode: $languageCode, meta: $meta)';
+    return 'ApiCourseTestTask.digitalInk(id: $id, scores: $scores, question: $question, rightAnswer: $rightAnswer, languageCode: $languageCode, meta: $meta)';
   }
 
   @override
@@ -930,6 +1005,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
         (other.runtimeType == runtimeType &&
             other is _$ApiCourseTestTaskDigitalInkImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.scores, scores) || other.scores == scores) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             (identical(other.rightAnswer, rightAnswer) ||
@@ -941,8 +1017,8 @@ class _$ApiCourseTestTaskDigitalInkImpl
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, question, rightAnswer, languageCode, meta);
+  int get hashCode => Object.hash(
+      runtimeType, id, scores, question, rightAnswer, languageCode, meta);
 
   @JsonKey(ignore: true)
   @override
@@ -956,6 +1032,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
   TResult when<TResult extends Object?>({
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -963,6 +1040,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
         quizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -970,13 +1048,14 @@ class _$ApiCourseTestTaskDigitalInkImpl
         multiChoiceQuizTyped,
     required TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
             ApiCourseTestTaskMeta? meta)
         digitalInk,
   }) {
-    return digitalInk(id, question, rightAnswer, languageCode, meta);
+    return digitalInk(id, scores, question, rightAnswer, languageCode, meta);
   }
 
   @override
@@ -984,6 +1063,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -991,6 +1071,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
         quizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -998,13 +1079,15 @@ class _$ApiCourseTestTaskDigitalInkImpl
         multiChoiceQuizTyped,
     TResult? Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
             ApiCourseTestTaskMeta? meta)?
         digitalInk,
   }) {
-    return digitalInk?.call(id, question, rightAnswer, languageCode, meta);
+    return digitalInk?.call(
+        id, scores, question, rightAnswer, languageCode, meta);
   }
 
   @override
@@ -1012,6 +1095,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             ApiCourseTestTaskAnswer rightAnswer,
@@ -1019,6 +1103,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
         quizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             List<ApiCourseTestTaskAnswer> answers,
             List<ApiCourseTestTaskAnswer> rightAnswers,
@@ -1026,6 +1111,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
         multiChoiceQuizTyped,
     TResult Function(
             String id,
+            double scores,
             ApiCourseTestTaskQuestion question,
             String rightAnswer,
             String languageCode,
@@ -1034,7 +1120,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
     required TResult orElse(),
   }) {
     if (digitalInk != null) {
-      return digitalInk(id, question, rightAnswer, languageCode, meta);
+      return digitalInk(id, scores, question, rightAnswer, languageCode, meta);
     }
     return orElse();
   }
@@ -1087,6 +1173,7 @@ class _$ApiCourseTestTaskDigitalInkImpl
 abstract class _ApiCourseTestTaskDigitalInk implements ApiCourseTestTask {
   factory _ApiCourseTestTaskDigitalInk(
       {required final String id,
+      required final double scores,
       required final ApiCourseTestTaskQuestion question,
       required final String rightAnswer,
       required final String languageCode,
@@ -1097,6 +1184,8 @@ abstract class _ApiCourseTestTaskDigitalInk implements ApiCourseTestTask {
 
   @override
   String get id;
+  @override
+  double get scores;
   @override
   ApiCourseTestTaskQuestion get question;
   String get rightAnswer;

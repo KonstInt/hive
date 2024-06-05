@@ -166,13 +166,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       var user = UserModel(
-          id: '0',
-          name: _name,
-          secondName: _surname,
-          email: _email,
-          nickname: _nickName,
-          photoUrl: null,
-          );
+        id: '0',
+        name: _name,
+        secondName: _surname,
+        email: _email,
+        nickname: _nickName,
+        photoUrl: null,
+      );
       user = await _authenticationRepository.signUp(user, _email, _password);
       if (_photoUrl != null) {
         await _authenticationRepository.updateAvatar(user.id, _photoUrl!);

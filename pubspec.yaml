@@ -29,6 +29,7 @@ dependencies:
   image_picker: ^1.0.7
 
   formz: ^0.7.0
+  flutter_widget_from_html_core: ^0.14.12
 
 dev_dependencies:
   flutter_test:

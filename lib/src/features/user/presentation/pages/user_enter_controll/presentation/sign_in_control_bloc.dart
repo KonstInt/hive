@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/src/features/user/presentation/pages/user_enter_controll/bloc/sign_in_control_bloc.dart';
+
 class SignInControlWidget extends StatelessWidget {
   const SignInControlWidget({super.key});
 
@@ -15,7 +16,7 @@ class SignInControlWidget extends StatelessWidget {
         child: BlocConsumer<SignInControlBloc, SignInControlState>(
           listener: (context, state) {
             state.mapOrNull(
-                loggedIn: (_) => context.go('/map'),
+                loggedIn: (_) => context.go('/home'),
                 loggedOut: (_) => context.go('/login'));
           },
           builder: (context, state) {

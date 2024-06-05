@@ -16,19 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CourseTestTaskEvent {
+  String get taskId => throw _privateConstructorUsedError;
+  String? get meta => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCurrentTask,
+    required TResult Function(String taskId, String? meta) getCurrentTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCurrentTask,
+    TResult? Function(String taskId, String? meta)? getCurrentTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCurrentTask,
+    TResult Function(String taskId, String? meta)? getCurrentTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +50,10 @@ mixin _$CourseTestTaskEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CourseTestTaskEventCopyWith<CourseTestTaskEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +61,8 @@ abstract class $CourseTestTaskEventCopyWith<$Res> {
   factory $CourseTestTaskEventCopyWith(
           CourseTestTaskEvent value, $Res Function(CourseTestTaskEvent) then) =
       _$CourseTestTaskEventCopyWithImpl<$Res, CourseTestTaskEvent>;
+  @useResult
+  $Res call({String taskId, String? meta});
 }
 
 /// @nodoc
@@ -66,13 +74,35 @@ class _$CourseTestTaskEventCopyWithImpl<$Res, $Val extends CourseTestTaskEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? taskId = null,
+    Object? meta = freezed,
+  }) {
+    return _then(_value.copyWith(
+      taskId: null == taskId
+          ? _value.taskId
+          : taskId // ignore: cast_nullable_to_non_nullable
+              as String,
+      meta: freezed == meta
+          ? _value.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetCurrentTaskImplCopyWith<$Res> {
+abstract class _$$GetCurrentTaskImplCopyWith<$Res>
+    implements $CourseTestTaskEventCopyWith<$Res> {
   factory _$$GetCurrentTaskImplCopyWith(_$GetCurrentTaskImpl value,
           $Res Function(_$GetCurrentTaskImpl) then) =
       __$$GetCurrentTaskImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String taskId, String? meta});
 }
 
 /// @nodoc
@@ -82,51 +112,84 @@ class __$$GetCurrentTaskImplCopyWithImpl<$Res>
   __$$GetCurrentTaskImplCopyWithImpl(
       _$GetCurrentTaskImpl _value, $Res Function(_$GetCurrentTaskImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? taskId = null,
+    Object? meta = freezed,
+  }) {
+    return _then(_$GetCurrentTaskImpl(
+      taskId: null == taskId
+          ? _value.taskId
+          : taskId // ignore: cast_nullable_to_non_nullable
+              as String,
+      meta: freezed == meta
+          ? _value.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetCurrentTaskImpl implements _GetCurrentTask {
-  const _$GetCurrentTaskImpl();
+  const _$GetCurrentTaskImpl({required this.taskId, required this.meta});
+
+  @override
+  final String taskId;
+  @override
+  final String? meta;
 
   @override
   String toString() {
-    return 'CourseTestTaskEvent.getCurrentTask()';
+    return 'CourseTestTaskEvent.getCurrentTask(taskId: $taskId, meta: $meta)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetCurrentTaskImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetCurrentTaskImpl &&
+            (identical(other.taskId, taskId) || other.taskId == taskId) &&
+            (identical(other.meta, meta) || other.meta == meta));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, taskId, meta);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCurrentTaskImplCopyWith<_$GetCurrentTaskImpl> get copyWith =>
+      __$$GetCurrentTaskImplCopyWithImpl<_$GetCurrentTaskImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getCurrentTask,
+    required TResult Function(String taskId, String? meta) getCurrentTask,
   }) {
-    return getCurrentTask();
+    return getCurrentTask(taskId, meta);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getCurrentTask,
+    TResult? Function(String taskId, String? meta)? getCurrentTask,
   }) {
-    return getCurrentTask?.call();
+    return getCurrentTask?.call(taskId, meta);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getCurrentTask,
+    TResult Function(String taskId, String? meta)? getCurrentTask,
     required TResult orElse(),
   }) {
     if (getCurrentTask != null) {
-      return getCurrentTask();
+      return getCurrentTask(taskId, meta);
     }
     return orElse();
   }
@@ -161,7 +224,18 @@ class _$GetCurrentTaskImpl implements _GetCurrentTask {
 }
 
 abstract class _GetCurrentTask implements CourseTestTaskEvent {
-  const factory _GetCurrentTask() = _$GetCurrentTaskImpl;
+  const factory _GetCurrentTask(
+      {required final String taskId,
+      required final String? meta}) = _$GetCurrentTaskImpl;
+
+  @override
+  String get taskId;
+  @override
+  String? get meta;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetCurrentTaskImplCopyWith<_$GetCurrentTaskImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

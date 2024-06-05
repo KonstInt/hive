@@ -10,6 +10,7 @@ _$ApiCourseTestTaskQuizTypedImpl _$$ApiCourseTestTaskQuizTypedImplFromJson(
         Map<String, dynamic> json) =>
     _$ApiCourseTestTaskQuizTypedImpl(
       id: json['id'] as String,
+      scores: (json['scores'] as num).toDouble(),
       question: ApiCourseTestTaskQuestion.fromJson(
           json['question'] as Map<String, dynamic>),
       answers: (json['answers'] as List<dynamic>)
@@ -29,10 +30,11 @@ Map<String, dynamic> _$$ApiCourseTestTaskQuizTypedImplToJson(
         _$ApiCourseTestTaskQuizTypedImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'question': instance.question,
-      'answers': instance.answers,
-      'rightAnswer': instance.rightAnswer,
-      'meta': instance.meta,
+      'scores': instance.scores,
+      'question': instance.question.toJson(),
+      'answers': instance.answers.map((e) => e.toJson()).toList(),
+      'rightAnswer': instance.rightAnswer.toJson(),
+      'meta': instance.meta?.toJson(),
       'runtimeType': instance.$type,
     };
 
@@ -41,6 +43,7 @@ _$ApiCourseTestTaskMultiChoiceQuizTypedImpl
             Map<String, dynamic> json) =>
         _$ApiCourseTestTaskMultiChoiceQuizTypedImpl(
           id: json['id'] as String,
+          scores: (json['scores'] as num).toDouble(),
           question: ApiCourseTestTaskQuestion.fromJson(
               json['question'] as Map<String, dynamic>),
           answers: (json['answers'] as List<dynamic>)
@@ -62,10 +65,11 @@ Map<String, dynamic> _$$ApiCourseTestTaskMultiChoiceQuizTypedImplToJson(
         _$ApiCourseTestTaskMultiChoiceQuizTypedImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'question': instance.question,
-      'answers': instance.answers,
-      'rightAnswers': instance.rightAnswers,
-      'meta': instance.meta,
+      'scores': instance.scores,
+      'question': instance.question.toJson(),
+      'answers': instance.answers.map((e) => e.toJson()).toList(),
+      'rightAnswers': instance.rightAnswers.map((e) => e.toJson()).toList(),
+      'meta': instance.meta?.toJson(),
       'runtimeType': instance.$type,
     };
 
@@ -73,6 +77,7 @@ _$ApiCourseTestTaskDigitalInkImpl _$$ApiCourseTestTaskDigitalInkImplFromJson(
         Map<String, dynamic> json) =>
     _$ApiCourseTestTaskDigitalInkImpl(
       id: json['id'] as String,
+      scores: (json['scores'] as num).toDouble(),
       question: ApiCourseTestTaskQuestion.fromJson(
           json['question'] as Map<String, dynamic>),
       rightAnswer: json['rightAnswer'] as String,
@@ -88,9 +93,10 @@ Map<String, dynamic> _$$ApiCourseTestTaskDigitalInkImplToJson(
         _$ApiCourseTestTaskDigitalInkImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'question': instance.question,
+      'scores': instance.scores,
+      'question': instance.question.toJson(),
       'rightAnswer': instance.rightAnswer,
       'languageCode': instance.languageCode,
-      'meta': instance.meta,
+      'meta': instance.meta?.toJson(),
       'runtimeType': instance.$type,
     };

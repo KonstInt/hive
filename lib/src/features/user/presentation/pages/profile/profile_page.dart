@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/src/features/user/presentation/pages/profile/bloc/profile_bloc.dart';
 import 'package:hive/src/features/user/presentation/pages/profile/profile_form.dart';
+import 'package:hive/src/util/themes/extensions/build_context_ext.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -12,13 +13,15 @@ class Profile extends StatelessWidget {
     //di
     //FirebaseUserService(), UserUseCase()
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: BlocProvider.value(
-          value: GetIt.I<ProfileBloc>(),
-          child: const ProfileForm(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(backgroundColor: Colors.transparent, title: Text('Профиль', style: context.textStyles.headlineB.copyWith(color: context.colors.baseText) ,)),
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: BlocProvider.value(
+            value: GetIt.I<ProfileBloc>(),
+            child: const ProfileForm(),
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class ColorsPalette {
   // Monochrome
@@ -59,7 +60,11 @@ class ColorsPalette {
   final Color pantherUnderAcid;
   final Color brick;
   final Color orange;
-
+  final Color baseText;
+  final Color inverseText;
+  final Color primaryBackground;
+  final Color secondaryBackground;
+  final Color thirdlyBackground;
   // Plus
   final LinearGradient logoPillAndButton;
   final LinearGradient gliphSeparateGradient;
@@ -70,6 +75,11 @@ class ColorsPalette {
   final Color disabled;
 
   const ColorsPalette({
+    required this.primaryBackground,
+    required this.secondaryBackground,
+    required this.thirdlyBackground,
+    required this.baseText,
+    required this.inverseText,
     // Monochrome
     required this.black,
     required this.black90,
