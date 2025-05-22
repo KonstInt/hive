@@ -34,12 +34,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
-      themeScope: ThemeScopeHolder(),
       child: ScreenUtilInit(
         builder: (_, child) {
           return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.dark,
-            child: _listenAcivUse(
+            child: _listenActiveUse(
               ch: MaterialApp.router(
                 title: 'Flutter Sirius',
                 debugShowCheckedModeBanner: false,
@@ -53,7 +52,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Widget _listenAcivUse({required Widget ch, required BuildContext context}) {
+  Widget _listenActiveUse({required Widget ch, required BuildContext context}) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onPanDown: (_) {

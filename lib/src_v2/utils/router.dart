@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:hive/src_v2/features/create_user/presentation/create_user_page.dart';
-import 'package:hive/src_v2/features/courses/presentation/pages/courses_page.dart';
 import 'package:hive/src_v2/features/sign_in/presentation/sign_in_page.dart';
 import 'package:hive/src_v2/features/sign_up/presentation/signup_page.dart';
 import 'package:hive/src_v2/features/user/presentation/widget/settings_page.dart';

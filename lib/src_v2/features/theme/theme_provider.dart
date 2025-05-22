@@ -6,11 +6,9 @@ import 'di/theme_di.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 class ThemeProvider extends StatefulWidget {
-  final ThemeScopeHolder themeScope;
   final Widget child;
 
   const ThemeProvider({
-    required this.themeScope,
     required this.child,
     super.key,
   });
@@ -20,33 +18,38 @@ class ThemeProvider extends StatefulWidget {
 }
 
 class _ThemeProviderState extends State<ThemeProvider> {
+  late final ThemeScopeHolder themeScope;
+
   @override
   void initState() {
     super.initState();
-    widget.themeScope.create();
+    themeScope = ThemeScopeHolder();
+    themeScope.create();
   }
 
   @override
   Widget build(BuildContext context) {
     return ScopeProvider(
-      holder: widget.themeScope,
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        bloc: widget.themeScope.container.themeBloc.get,
-        buildWhen: (previous, current) =>
-            previous.isDarkMode != current.isDarkMode,
-        builder: (context, state) {
-          return Theme(
-            data: state.isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
-            child: widget.child,
-          );
-        },
+      holder: themeScope,
+      child: ScopeBuilder<ThemeContainer>.withPlaceholder(
+        builder: (context, scope) => BlocBuilder<ThemeBloc, ThemeState>(
+          bloc: scope.themeBloc.get,
+          buildWhen: (previous, current) =>
+              previous.isDarkMode != current.isDarkMode,
+          builder: (context, state) {
+            return Theme(
+              data: state.isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
+              child: widget.child,
+            );
+          },
+        ),
       ),
     );
   }
 
   @override
   void dispose() {
-    widget.themeScope.drop();
+    themeScope.drop();
     super.dispose();
   }
 }

@@ -1,8 +1,8 @@
-import 'package:fpdart/fpdart.dart';
-import '../entities/course.dart';
-import '../../../../utils/failure.dart';
+import 'package:hive/src_v2/features/courses/domain/models/course.dart';
+import 'package:hive/src_v2/features/courses/domain/models/course_meta_info.dart';
 
 abstract class CoursesRepository {
-  Future<Either<Failure, List<Course>>> getAllCourses();
-  Future<Either<Failure, Course>> getCourseById(String id);
+  Future<List<Course>> getCourses(String userId);
+  Future<void> enrollInCourse(String userId, String courseId);
+  Future<CourseMetaInfo> getCourseMetaInfo(String userId, String courseId);
 }

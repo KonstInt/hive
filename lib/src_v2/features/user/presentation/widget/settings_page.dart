@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/src_v2/features/theme/di/theme_di.dart';
+import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 import '../../domain/user_bloc/user_bloc.dart';
 import '../../../theme/theme_bloc/theme_bloc.dart';
 import '../../shared/user_model.dart';
@@ -135,18 +137,22 @@ class _SettingsPageState extends State<SettingsPage> {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 16),
-                        BlocBuilder<ThemeBloc, ThemeState>(
-                          builder: (context, themeState) {
-                            return SwitchListTile(
-                              title: const Text('Темная тема'),
-                              value: themeState.isDarkMode,
-                              onChanged: (_) {
-                                context
-                                    .read<ThemeBloc>()
-                                    .add(ToggleThemeEvent());
-                              },
-                            );
-                          },
+                        ScopeBuilder<ThemeContainer>.withPlaceholder(
+                          builder: (context, scope) =>
+                              BlocBuilder<ThemeBloc, ThemeState>(
+                            bloc: scope.themeBloc.get,
+                            builder: (context, themeState) {
+                              return SwitchListTile(
+                                title: const Text('Темная тема'),
+                                value: themeState.isDarkMode,
+                                onChanged: (_) {
+                                  context
+                                      .read<ThemeBloc>()
+                                      .add(ToggleThemeEvent());
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
