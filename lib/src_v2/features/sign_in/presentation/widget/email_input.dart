@@ -34,7 +34,7 @@ class EmailInput extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.blueTooth),
+          borderSide: BorderSide(color: context.colors.baseText),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),

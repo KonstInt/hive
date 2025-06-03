@@ -27,38 +27,46 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      ScopeBuilder<SignInContainer>.withPlaceholder(
-        builder: (context, scope) {
-          return Align(
-            alignment: const Alignment(0, -1 / 3),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const SignInAppBar(),
-                  const SizedBox(height: 32),
-                  EmailInput(
-                    controller: emailInputController,
-                    inputFieldsBloc: scope.inputFieldsBloc.get,
-                  ),
-                  const SizedBox(height: 16),
-                  PasswordInput(
-                    controller: passwordInputController,
-                    inputFieldsBloc: scope.inputFieldsBloc.get,
-                  ),
-                  const SizedBox(height: 24),
-                  LoginButton(
-                    signInBloc: scope.signInBloc.get,
-                    inputFieldsBloc: scope.inputFieldsBloc.get,
-                  ),
-                  const SizedBox(height: 16),
-                  SignUpButton(),
-                ],
+  void dispose() {
+    emailInputController.dispose();
+    passwordInputController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScopeBuilder<SignInContainer>.withPlaceholder(
+      builder: (context, scope) {
+        final inputBloc = scope.inputFieldsBloc.get;
+        final signInBloc = scope.signInBloc.get;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SignInAppBar(),
+              const SizedBox(height: 32),
+              EmailInput(
+                controller: emailInputController,
+                inputFieldsBloc: inputBloc,
               ),
-            ),
-          );
-        },
-      );
+              const SizedBox(height: 16),
+              PasswordInput(
+                controller: passwordInputController,
+                inputFieldsBloc: inputBloc,
+              ),
+              const SizedBox(height: 24),
+              LoginButton(
+                signInBloc: signInBloc,
+                inputFieldsBloc: inputBloc,
+              ),
+              const SizedBox(height: 16),
+              const SignUpButton(),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

@@ -19,13 +19,24 @@ class SplashScreen extends StatelessWidget {
           listener: (context, state) {
             switch (state) {
               case AuthOutState():
-                context.go('/sign_in');
+                Router.neglect(
+                  context,
+                  () => context.go('/sign_in'),
+                );
                 break;
               case AuthInState():
-                context.go('/home');
+                Router.neglect(
+                  context,
+                  () => context.go('/home'),
+                );
+
                 break;
               case AuthNoUserState state:
-                context.go('/create_user', extra: state.uuid);
+                Router.neglect(
+                  context,
+                  () => context.go('/create_user', extra: state.uuid),
+                );
+
                 break;
               default:
                 break;

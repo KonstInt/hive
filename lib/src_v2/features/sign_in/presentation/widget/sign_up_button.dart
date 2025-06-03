@@ -12,12 +12,12 @@ class SignUpButton extends StatelessWidget {
     return TextButton(
       key: const Key('loginForm_createAccount_button'),
       onPressed: () {
-        context.go('/sign_up');
+        context.go('/sign_in/sign_up');
       },
       child: Text(
         'Создать аккаунт',
         style:
-            context.textStyles.bodyM.copyWith(color: context.colors.blueTooth),
+            context.textStyles.bodyM.copyWith(color: context.colors.baseText),
       ),
     );
   }

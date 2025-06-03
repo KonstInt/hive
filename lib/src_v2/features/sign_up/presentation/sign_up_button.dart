@@ -20,103 +20,89 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopeBuilder<AuthContainer>.withPlaceholder(
-        builder: (context, scope) {
-      return BlocConsumer<AccountRegistrationBloc, AccountRegistrationState>(
-        bloc: signUpBloc,
-        listener: (context, signInState) {
-          switch (signInState) {
-            case AccountRegistrationSuccess():
+      builder: (context, scope) {
+        return BlocConsumer<AccountRegistrationBloc, AccountRegistrationState>(
+          bloc: signUpBloc,
+          listener: (context, state) {
+            if (state is AccountRegistrationSuccess) {
               scope.authInteractor.get.authIn();
               context.go('/');
-            case _:
-              break;
-          }
-        },
-        builder: (context, signInState) => BlocBuilder<
-            InputAccountRegistrationFieldsBloc,
-            InputAccountRegistrationFieldsState>(
-          bloc: inputFieldsBloc,
-          builder: (context, inputState) {
-            bool buttonEnabled = false;
-            bool isInProgress = false;
-            String? errorText;
-
-            switch (inputState) {
-              case InputAccountRegistrationFieldsCompleted():
-                buttonEnabled = true;
-                break;
-              case InputAccountRegistrationFieldsNotCompleted():
-                buttonEnabled = false;
-                break;
             }
+          },
+          builder: (context, state) {
+            return BlocBuilder<InputAccountRegistrationFieldsBloc,
+                InputAccountRegistrationFieldsState>(
+              bloc: inputFieldsBloc,
+              builder: (context, inputState) {
+                final isComplete =
+                    inputState is InputAccountRegistrationFieldsCompleted;
+                final isLoading = state is AccountRegistrationLoading;
+                final isError = state is AccountRegistrationError;
 
-            switch (signInState) {
-              case AccountRegistrationInitial():
-                isInProgress = false;
-                errorText = null;
-                break;
-              case AccountRegistrationLoading():
-                buttonEnabled = false;
-                isInProgress = true;
-                errorText = null;
-                break;
-              case AccountRegistrationSuccess():
-                buttonEnabled = false;
-                isInProgress = false;
-                errorText = null;
-                break;
-              case AccountRegistrationError():
-                buttonEnabled = true;
-                isInProgress = false;
-                errorText = 'Ошибка входа';
-                break;
-            }
+                final isEnabled = isComplete && !isLoading;
+                final email = inputState.email ?? '';
+                final password = inputState.password ?? '';
 
-            return Column(
-              children: [
-                if (errorText != null)
-                  Text(
-                    errorText,
-                    style: context.textStyles.bodyB,
-                  ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: context.colors.inverseText,
-                    disabledBackgroundColor: context.colors.disabled,
-                    minimumSize: Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  onPressed: buttonEnabled
-                      ? () => signUpBloc.add(
-                            AccountRegistrationEmailEvent(
-                              email: inputState.email ?? '',
-                              password: inputState.password ?? '',
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (isError)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Text(
+                          'Ошибка регистрации',
+                          style: context.textStyles.bodyB
+                              .copyWith(color: context.colors.mario),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ElevatedButton(
+                      onPressed: isEnabled
+                          ? () => signUpBloc.add(
+                                AccountRegistrationEmailEvent(
+                                  email: email,
+                                  password: password,
+                                ),
+                              )
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.colors.baseText,
+                        foregroundColor: context.colors.inverseText,
+                        disabledBackgroundColor: context.colors.disabled,
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Opacity(
+                            opacity: isLoading ? 0 : 1,
+                            child: Text(
+                              'Создать аккаунт',
+                              style: context.textStyles.bodyM,
                             ),
-                          )
-                      : null,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Создать аккаунт',
-                        style: context.textStyles.bodyM,
+                          ),
+                          if (isLoading)
+                            const SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      if (isInProgress) CircularProgressIndicator(),
-                    ],
-                  ),
-                ),
-              ],
+                    ),
+                  ],
+                );
+              },
             );
           },
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

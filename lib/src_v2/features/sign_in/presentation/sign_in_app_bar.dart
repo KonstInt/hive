@@ -6,22 +6,31 @@ class SignInAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 4,
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.lock,
-            size: 100,
-            color: context.colors.blueTooth,
-          ),
-          Text(
-            'Вход',
-            style: context.textStyles.headlineB,
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.25,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 48,
+              backgroundColor: context.colors.baseText.withOpacity(0.1),
+              child: Icon(
+                Icons.lock_outline_rounded,
+                size: 60,
+                color: context.colors.baseText,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Вход',
+              style: context.textStyles.headlineB,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

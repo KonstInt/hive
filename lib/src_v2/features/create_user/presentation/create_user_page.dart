@@ -24,70 +24,7 @@ class _AccountCreateUserPageState extends State<AccountCreateUserPage> {
   @override
   void initState() {
     super.initState();
-    _holder = CreateUserScopeHolder(uuid: widget.uuid);
-    _holder.create();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: ScopeProvider(
-          holder: _holder,
-          child: ScopeBuilder<CreateUserContainer>.withPlaceholder(
-            builder: (context, scope) {
-              final inputFieldsBloc = scope.inputPersonalFieldsBloc.get;
-
-              return Align(
-                alignment: const Alignment(0, -1 / 3),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CreateUserAppBar(),
-                      const SizedBox(height: 16),
-                      _NickName(
-                        onChanged: (val) => inputFieldsBloc.add(
-                          InputNicknameEvent(
-                            nickname: val,
-                          ),
-                        ),
-                        validator: inputFieldsBloc.nicknameValidator,
-                      ),
-                      const SizedBox(height: 16),
-                      _Name(
-                        onChanged: (val) => inputFieldsBloc.add(
-                          InputNameEvent(
-                            name: val,
-                          ),
-                        ),
-                        validator: inputFieldsBloc.nameValidator,
-                      ),
-                      const SizedBox(height: 16),
-                      _Surname(
-                        onChanged: (val) => inputFieldsBloc.add(
-                          InputSecondNameEvent(
-                            secondName: val,
-                          ),
-                        ),
-                        validator: inputFieldsBloc.secondNameValidator,
-                      ),
-                      const SizedBox(height: 24),
-                      CreateUserButton(
-                        accountCreateUserBloc: scope.createUserBloc.get,
-                        inputPersonalFieldsBloc: inputFieldsBloc,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
+    _holder = CreateUserScopeHolder(uuid: widget.uuid)..create();
   }
 
   @override
@@ -95,133 +32,106 @@ class _AccountCreateUserPageState extends State<AccountCreateUserPage> {
     _holder.drop();
     super.dispose();
   }
-}
-
-class _NickName extends StatelessWidget {
-  final String? Function(String?) validator;
-  final void Function(String) onChanged;
-
-  const _NickName({
-    required this.onChanged,
-    required this.validator,
-  });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      key: const Key('nick_input'),
-      onChanged: (nickName) => onChanged(nickName),
-      autovalidateMode: AutovalidateMode.always,
-      validator: (nickname) => validator(nickname),
-      decoration: InputDecoration(
-        labelText: 'Псевдоним',
-        helperText: '',
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.black),
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: ScopeProvider(
+            holder: _holder,
+            child: ScopeBuilder<CreateUserContainer>.withPlaceholder(
+              builder: (context, scope) {
+                final inputBloc = scope.inputPersonalFieldsBloc.get;
+
+                return Align(
+                  alignment: const Alignment(0, -1 / 3),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const CreateUserAppBar(),
+                        const SizedBox(height: 24),
+                        _buildTextField(
+                          key: const Key('nick_input'),
+                          label: 'Псевдоним',
+                          validator: inputBloc.nicknameValidator,
+                          onChanged: (val) =>
+                              inputBloc.add(InputNicknameEvent(nickname: val)),
+                          context: context,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          key: const Key('name'),
+                          label: 'Имя',
+                          validator: inputBloc.nameValidator,
+                          onChanged: (val) =>
+                              inputBloc.add(InputNameEvent(name: val)),
+                          context: context,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          key: const Key('surname'),
+                          label: 'Фамилия',
+                          validator: inputBloc.secondNameValidator,
+                          onChanged: (val) => inputBloc
+                              .add(InputSecondNameEvent(secondName: val)),
+                          context: context,
+                        ),
+                        const SizedBox(height: 32),
+                        CreateUserButton(
+                          accountCreateUserBloc: scope.createUserBloc.get,
+                          inputPersonalFieldsBloc: inputBloc,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.blueTooth),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.mario),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.mario),
-        ),
-        labelStyle:
-            context.textStyles.smallM.copyWith(color: context.colors.black),
       ),
-      textInputAction: TextInputAction.next,
     );
   }
-}
 
-class _Name extends StatelessWidget {
-  final String? Function(String?) validator;
-  final void Function(String) onChanged;
-
-  const _Name({
-    required this.validator,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildTextField({
+    required Key key,
+    required String label,
+    required String? Function(String?) validator,
+    required void Function(String) onChanged,
+    required BuildContext context,
+  }) {
     return TextFormField(
-      key: const Key('name'),
-      onChanged: (name) => onChanged(name),
+      key: key,
       autovalidateMode: AutovalidateMode.always,
-      validator: (name) => validator(name),
+      validator: validator,
+      onChanged: onChanged,
+      textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        labelText: 'Имя',
+        labelText: label,
         helperText: '',
+        labelStyle:
+            context.textStyles.smallM.copyWith(color: context.colors.black),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: context.colors.black),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.blueTooth),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: context.colors.baseText),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: context.colors.mario),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: context.colors.mario),
         ),
-        labelStyle:
-            context.textStyles.smallM.copyWith(color: context.colors.black),
       ),
-      textInputAction: TextInputAction.next,
-    );
-  }
-}
-
-class _Surname extends StatelessWidget {
-  final String? Function(String?) validator;
-  final void Function(String) onChanged;
-
-  const _Surname({
-    required this.onChanged,
-    required this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      key: const Key('surname'),
-      onChanged: (surname) => onChanged(surname),
-      autovalidateMode: AutovalidateMode.always,
-      validator: (surname) => validator(surname),
-      decoration: InputDecoration(
-        labelText: 'Фамилия',
-        helperText: '',
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.blueTooth),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.mario),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: context.colors.mario),
-        ),
-        labelStyle:
-            context.textStyles.smallM.copyWith(color: context.colors.black),
-      ),
-      textInputAction: TextInputAction.next,
     );
   }
 }

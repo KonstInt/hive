@@ -87,7 +87,7 @@ class LoginButton extends StatelessWidget {
                   ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: context.colors.baseText,
                     foregroundColor: context.colors.inverseText,
                     disabledBackgroundColor: context.colors.disabled,
                     minimumSize: Size(double.infinity, 50),
@@ -113,6 +113,7 @@ class LoginButton extends StatelessWidget {
                         'Войти',
                         style: context.textStyles.bodyM,
                       ),
+                      if (isInProgress)
                       SizedBox(
                         width: 50,
                       ),

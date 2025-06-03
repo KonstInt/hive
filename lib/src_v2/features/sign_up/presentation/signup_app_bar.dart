@@ -6,22 +6,33 @@ class SignUpAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 5,
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.create,
-            size: 80,
-            color: context.colors.blueTooth,
-          ),
-          Text(
-            'Регистрация',
-            style: context.textStyles.headlineB,
-          ),
-        ],
+    final height = MediaQuery.of(context).size.height * 0.22;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: SizedBox(
+        height: height,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 40,
+              backgroundColor: context.colors.baseText.withOpacity(0.1),
+              child: Icon(
+                Icons.create,
+                size: 48,
+                color: context.colors.baseText,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Регистрация',
+              style: context.textStyles.headlineB,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -22,114 +22,87 @@ class CreateUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopeBuilder<AuthContainer>.withPlaceholder(
-        builder: (context, scope) {
-      return BlocConsumer<AccountCreateUserBloc, AccountCreateUserState>(
-        bloc: accountCreateUserBloc,
-        listener: (context, signInState) {
-          switch (signInState) {
-            case AccountCreateUserSuccess():
+      builder: (context, scope) {
+        return BlocConsumer<AccountCreateUserBloc, AccountCreateUserState>(
+          bloc: accountCreateUserBloc,
+          listener: (context, state) {
+            if (state is AccountCreateUserSuccess) {
               scope.authInteractor.get.authIn();
               context.go('/');
-            case _:
-              break;
-          }
-        },
-        builder: (context, signInState) =>
-            BlocBuilder<InputPersonalFieldsBloc, InputPersonalFieldsState>(
-          bloc: inputPersonalFieldsBloc,
-          builder: (context, inputState) {
-            bool buttonEnabled = false;
-            bool isInProgress = false;
-            String? errorText;
-
-            switch (inputState) {
-              case InputPersonalFieldsCompleted():
-                buttonEnabled = true;
-                break;
-              case InputPersonalFieldsNotCompleted():
-                buttonEnabled = false;
-                break;
             }
+          },
+          builder: (context, userState) {
+            return BlocBuilder<InputPersonalFieldsBloc,
+                InputPersonalFieldsState>(
+              bloc: inputPersonalFieldsBloc,
+              builder: (context, inputState) {
+                final isCompleted = inputState is InputPersonalFieldsCompleted;
+                final isLoading = userState is AccountCreateUserLoading;
+                final hasError = userState is AccountCreateUserError;
 
-            switch (signInState) {
-              case AccountCreateUserInitial():
-                isInProgress = false;
-                errorText = null;
-                break;
-              case AccountCreateUserLoading():
-                buttonEnabled = false;
-                isInProgress = true;
-                errorText = null;
-                break;
-              case AccountCreateUserSuccess():
-                buttonEnabled = false;
-                isInProgress = false;
-                errorText = null;
-                break;
-              case AccountCreateUserError():
-                buttonEnabled = true;
-                isInProgress = false;
-                errorText = 'Ошибка!';
-                break;
-            }
+                final userModel = UserModel(
+                  name: inputState.name ?? '',
+                  secondName: inputState.secondName ?? '',
+                  nickname: inputState.nickname ?? '',
+                );
 
-            return Column(
-              children: [
-                if (errorText != null)
-                  Text(
-                    errorText,
-                    style: context.textStyles.bodyB,
-                  ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: context.colors.inverseText,
-                    disabledBackgroundColor: context.colors.disabled,
-                    minimumSize: Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  onPressed: buttonEnabled
-                      ? () => accountCreateUserBloc.add(
-                            AccountCreateNewUserEvent(
-                              userModel: UserModel(
-                                name: inputPersonalFieldsBloc.state.name ?? '',
-                                secondName:
-                                    inputPersonalFieldsBloc.state.secondName ??
-                                        '',
-                                nickname:
-                                    inputPersonalFieldsBloc.state.nickname ??
-                                        '',
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (hasError)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Text(
+                          'Ошибка при создании пользователя',
+                          style: context.textStyles.bodyB
+                              .copyWith(color: context.colors.mario),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ElevatedButton(
+                      onPressed: isCompleted && !isLoading
+                          ? () => accountCreateUserBloc.add(
+                                AccountCreateNewUserEvent(userModel: userModel),
+                              )
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.colors.baseText,
+                        foregroundColor: context.colors.inverseText,
+                        disabledBackgroundColor: context.colors.disabled,
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Opacity(
+                            opacity: isLoading ? 0 : 1,
+                            child: Text(
+                              'Войти',
+                              style: context.textStyles.bodyM,
+                            ),
+                          ),
+                          if (isLoading)
+                            const SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
                               ),
                             ),
-                          )
-                      : null,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Войти',
-                        style: context.textStyles.bodyM,
+                        ],
                       ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      if (isInProgress)
-                        CircularProgressIndicator(
-                          padding: EdgeInsets.all(
-                            8,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ],
+                    ),
+                  ],
+                );
+              },
             );
           },
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

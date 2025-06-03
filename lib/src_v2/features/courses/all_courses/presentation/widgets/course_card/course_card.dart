@@ -79,7 +79,7 @@ class CourseCard extends StatelessWidget {
                                 Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                     ),
-                    FilledButton.tonal(
+                    FilledButton(
                       onPressed: course.isEnrolled
                           ? null
                           : () => bloc.add(EnrollInCourse(course.id)),

@@ -16,27 +16,34 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
-    _holder = SignInScopeHolder();
-    _holder.create();
+    _holder = SignInScopeHolder()..create();
   }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: ScopeProvider(
-              holder: _holder,
-              child: const SignInForm(),
-            ),
-          ),
-        ),
-      );
 
   @override
   void dispose() {
     _holder.drop();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: ScopeProvider(
+            holder: _holder,
+            child: const Padding(
+              padding: EdgeInsets.all(16),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: SignInForm(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

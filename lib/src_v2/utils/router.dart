@@ -27,6 +27,7 @@ class RoutingServiceV2 {
     required this.themeScopeHolder,
   }) {
     goRouter = GoRouter(
+      routerNeglect: true,
       initialLocation: '/',
       debugLogDiagnostics: true,
       routes: [
@@ -42,97 +43,92 @@ class RoutingServiceV2 {
             GoRoute(
               path: '/',
               builder: (context, state) => const SplashScreen(),
-              routes: [
-                GoRoute(
-                  path: 'sign_in',
-                  builder: (context, state) => const SignInPage(),
-                ),
-                GoRoute(
-                  path: 'sign_up',
-                  builder: (context, state) => const SignUpPage(),
-                ),
-                GoRoute(
-                  path: 'create_user',
-                  builder: (context, state) => AccountCreateUserPage(
-                    uuid: state.extra as String,
+            ),
+            GoRoute(
+                path: '/sign_in',
+                builder: (context, state) => const SignInPage(),
+                routes: [
+                  GoRoute(
+                    path: 'sign_up',
+                    builder: (context, state) => const SignUpPage(),
                   ),
-                ),
-                StatefulShellRoute.indexedStack(
-                  builder: (context, state, navigationShell) {
-                    return AppBottomNavigation(
-                      navigationShell: navigationShell,
-                    );
-                  },
-                  branches: [
-                    StatefulShellBranch(
+                ]),
+            GoRoute(
+              path: '/create_user',
+              builder: (context, state) => AccountCreateUserPage(
+                uuid: state.extra as String,
+              ),
+            ),
+            StatefulShellRoute.indexedStack(
+              builder: (context, state, navigationShell) {
+                return AppBottomNavigation(
+                  navigationShell: navigationShell,
+                );
+              },
+              branches: [
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: '/home',
+                      pageBuilder: (context, state) => const NoTransitionPage(
+                        child: MyCoursesScreen(),
+                      ),
                       routes: [
                         GoRoute(
-                          path: 'home',
-                          pageBuilder: (context, state) =>
-                              const NoTransitionPage(
-                            child: MyCoursesScreen(),
-                          ),
+                          name: 'fullscreen_course',
+                          path: 'course/:courseID',
+                          builder: (context, state) {
+                            final courseID = state.pathParameters['courseID']!;
+                            return FullScreenCourseScreen(
+                              courseId: courseID,
+                            );
+                          },
                           routes: [
                             GoRoute(
-                              name: 'fullscreen_course',
-                              path: 'course/:courseID',
+                              name: 'test_session',
+                              path: 'test/:testID',
                               builder: (context, state) {
+                                final testID = state.pathParameters['testID']!;
                                 final courseID =
-                                    state.pathParameters['courseID']!;
-                                return FullScreenCourseScreen(
+                                    GoRouterState.of(context).extra! as String;
+                                return TestSessionScreen(
                                   courseId: courseID,
+                                  testId: testID,
                                 );
                               },
-                              routes: [
-                                GoRoute(
-                                  name: 'test_session',
-                                  path: 'test/:testID',
-                                  builder: (context, state) {
-                                    final testID =
-                                        state.pathParameters['testID']!;
-                                    final courseID = GoRouterState.of(context)
-                                        .extra! as String;
-                                    return TestSessionScreen(
-                                      courseId: courseID,
-                                      testId: testID,
-                                    );
-                                  },
-                                ),
-                              ],
                             ),
                           ],
                         ),
                       ],
                     ),
-                    StatefulShellBranch(
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: '/courses',
+                      pageBuilder: (context, state) => NoTransitionPage(
+                        child: CoursesScreen(),
+                      ),
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: [
+                    ShellRoute(
+                      builder: (context, state, child) =>
+                          UserProvider(child: child),
                       routes: [
                         GoRoute(
-                          path: 'courses',
-                          pageBuilder: (context, state) => NoTransitionPage(
-                            child: CoursesScreen(),
+                          path: '/profile',
+                          pageBuilder: (context, state) =>
+                              const NoTransitionPage(
+                            child: UserPage(),
                           ),
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranch(
-                      routes: [
-                        ShellRoute(
-                          builder: (context, state, child) =>
-                              UserProvider(child: child),
                           routes: [
                             GoRoute(
-                              path: 'profile',
-                              pageBuilder: (context, state) =>
-                                  const NoTransitionPage(
-                                child: UserPage(),
-                              ),
-                              routes: [
-                                GoRoute(
-                                  path: 'settings',
-                                  builder: (context, state) =>
-                                      const SettingsPage(),
-                                ),
-                              ],
+                              path: 'settings',
+                              builder: (context, state) => const SettingsPage(),
                             ),
                           ],
                         ),
