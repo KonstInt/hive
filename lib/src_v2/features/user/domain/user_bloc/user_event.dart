@@ -12,13 +12,9 @@ final class UserLoadEvent extends UserEvent {
 }
 
 final class UserUpdateEvent extends UserEvent {
-  final String uuid;
   final UserModel userModel;
 
   UserUpdateEvent({
-    required this.uuid,
     required this.userModel,
   });
 }
-
-

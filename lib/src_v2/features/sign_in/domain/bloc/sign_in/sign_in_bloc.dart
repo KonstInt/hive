@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/src_v2/features/sign_in/domain/models/sign_in_credential.dart';
 import 'package:meta/meta.dart';
 
@@ -11,7 +10,7 @@ part 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final SignInApi _signInApi;
-  
+
   SignInBloc({required SignInApi signInApi})
       : _signInApi = signInApi,
         super(SignInInitial()) {

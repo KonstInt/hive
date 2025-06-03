@@ -10,8 +10,7 @@ class AppTheme {
           primary: lightPalette.black,
           secondary: lightPalette.blackOpacity60,
           shadow: const Color.fromARGB(255, 0, 0, 0),
-          onSurface: lightPalette.white,
-          surface: lightPalette.black7,
+          surface: lightPalette.black12,
         ),
         brightness: Brightness.light,
         scaffoldBackgroundColor: lightPalette.black4,
@@ -19,7 +18,7 @@ class AppTheme {
           ThemeStyle(
             colors: lightPalette,
             styles: textStyles,
-            brightness: Brightness.dark,
+            brightness: Brightness.light,
           ),
         ],
       );
@@ -29,16 +28,15 @@ class AppTheme {
           primary: lightPalette.black,
           secondary: lightPalette.blackOpacity60,
           shadow: const Color.fromARGB(255, 0, 0, 0),
-          onSurface: lightPalette.white,
-          surface: lightPalette.black7,
+          surface: lightPalette.black70,
         ),
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: darkPalette.black7,
+        scaffoldBackgroundColor: darkPalette.black60,
         extensions: [
           ThemeStyle(
             colors: darkPalette,
             styles: textStyles,
-            brightness: Brightness.light,
+            brightness: Brightness.dark,
           ),
         ],
       );

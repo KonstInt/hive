@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'input_personal_fields_event.dart';
 part 'input_personal_fields_state.dart';
@@ -99,7 +98,7 @@ class InputPersonalFieldsBloc
   }
 
   String? secondNameValidator(String? value) {
-    if (value == null|| value.isEmpty) {
+    if (value == null || value.isEmpty) {
       return null;
     }
     if (!RegExp(r"^[А-Яа-яA-Za-z\-]+$").hasMatch(value)) {

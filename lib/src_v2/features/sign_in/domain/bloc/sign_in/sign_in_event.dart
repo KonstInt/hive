@@ -13,5 +13,3 @@ class SignInInitEvent extends SignInEvent {
     required this.credential,
   });
 }
-
-

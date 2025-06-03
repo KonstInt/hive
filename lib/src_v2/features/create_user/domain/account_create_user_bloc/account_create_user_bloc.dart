@@ -1,10 +1,6 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/src_v2/features/create_user/data/create_user_api.dart';
-
-import '../../../sign_up/data/sign_up_api.dart';
 import '../../../user/shared/user_model.dart';
 
 part 'account_create_user_event.dart';

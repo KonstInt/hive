@@ -6,7 +6,7 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  FirebaseAuthApi _api;
+  final FirebaseAuthApi _api;
   AuthBloc({required FirebaseAuthApi api})
       : _api = api,
         super(AuthLoadingState()) {

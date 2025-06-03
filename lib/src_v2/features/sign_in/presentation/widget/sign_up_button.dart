@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/src_v2/features/theme/themes/extensions/build_context_ext.dart';
 
 class SignUpButton extends StatelessWidget {
-
   const SignUpButton({
     super.key,
   });

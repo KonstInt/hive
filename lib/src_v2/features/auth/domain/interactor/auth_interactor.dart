@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:hive/src_v2/features/auth/domain/bloc/auth_bloc.dart';
+import '../models/user_model.dart';
 
 class AuthInteractor {
   final AuthBloc _authBloc;
@@ -20,6 +21,13 @@ class AuthInteractor {
     return switch (_authBloc.state) {
       AuthInState state => state.uuid,
       _ => throw Exception('uuid called when session not authed!'),
+    };
+  }
+
+  AuthModel get currentUser {
+    return switch (_authBloc.state) {
+      AuthInState state => AuthModel(id: state.uuid),
+      _ => throw Exception('currentUser called when session not authed!'),
     };
   }
 

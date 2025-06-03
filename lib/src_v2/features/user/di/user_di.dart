@@ -23,20 +23,32 @@ class UserScopeHolder extends ScopeHolder<UserContainer> {
 
 class UserContainer extends ScopeContainer {
   final AuthInteractor _authInteractor;
-  
+
   UserContainer({
     required AuthInteractor authInteractor,
   }) : _authInteractor = authInteractor;
 
-  late final userInteractor = dep(
+  @override
+  List<Set<AsyncDep>> get initializeQueue => [
+        {
+          userInteractor,
+        }
+      ];
+
+  late final userInteractor = rawAsyncDep(
     () => UserInteractor(
       userBloc: userBloc.get,
       authInteractor: _authInteractor,
     ),
+    init: (dep) async => dep.loadUser(),
+    dispose: (dep) async {},
   );
 
   late final userBloc = dep(
-    () => UserBloc(userApi: _userApi.get),
+    () => UserBloc(
+      userApi: _userApi.get,
+      authInteractor: _authInteractor,
+    ),
   );
 
   late final _userApi = dep(

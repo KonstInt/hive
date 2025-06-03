@@ -5,12 +5,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
 import 'package:hive/firebase_options.dart';
-import 'package:hive/src_v2/features/theme/di/theme_di.dart';
 import 'package:hive/src_v2/features/theme/theme_provider.dart';
-import 'package:hive/src_v2/features/theme/themes/app_theme.dart';
-import 'package:hive/src_v2/utils/router.dart';
 
 void main() async {
   // configureDependencies();
@@ -33,22 +29,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(
-      child: ScreenUtilInit(
-        builder: (_, child) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.dark,
-            child: _listenActiveUse(
-              ch: MaterialApp.router(
-                title: 'Flutter Sirius',
-                debugShowCheckedModeBanner: false,
-                routerConfig: RoutingServiceV2.goRouter,
-              ),
-              context: context,
-            ),
-          );
-        },
-      ),
+    return ScreenUtilInit(
+      builder: (_, child) {
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark,
+          child: _listenActiveUse(
+            ch: ThemedApp(),
+            context: context,
+          ),
+        );
+      },
     );
   }
 

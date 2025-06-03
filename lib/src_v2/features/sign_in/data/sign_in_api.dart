@@ -13,11 +13,10 @@ class SignInApi {
       );
 
       final currentUser = FirebaseAuth.instance.currentUser;
-      
+
       if (currentUser != null) {
         return currentUser.uid;
-      }
-      else{
+      } else {
         throw Exception('User not found');
       }
     } on Exception {

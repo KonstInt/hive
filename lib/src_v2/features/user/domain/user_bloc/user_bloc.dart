@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/src_v2/features/auth/domain/interactor/auth_interactor.dart';
 import 'package:hive/src_v2/features/user/data/user_api.dart';
 import 'package:hive/src_v2/features/user/shared/user_model.dart';
 import 'package:meta/meta.dart';
@@ -8,8 +9,10 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserApi _userApi;
-  UserBloc({required UserApi userApi})
+  final AuthInteractor _authInteractor;
+  UserBloc({required AuthInteractor authInteractor, required UserApi userApi})
       : _userApi = userApi,
+        _authInteractor = authInteractor,
         super(UserLoadingState()) {
     on<UserEvent>(
       (event, emit) async {
@@ -41,7 +44,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       UserUpdateEvent event, Emitter<UserState> emit) async {
     emit(UserLoadingState());
     try {
-      final user = await _userApi.updateUser(event.userModel, event.uuid);
+      final user = await _userApi.updateUser(
+        event.userModel,
+        _authInteractor.getCurrentUuid(),
+      );
       emit(
         UserLoadedState(userDataModel: user),
       );

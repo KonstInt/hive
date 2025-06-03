@@ -15,9 +15,7 @@ class AuthScopeHolder extends ScopeHolder<AuthContainer> {
 }
 
 class AuthContainer extends ScopeContainer {
-  AuthContainer({
-    todayEarningsVisibilityRefresher,
-  });
+  AuthContainer();
 
   late final authInteractor = dep(
     () => AuthInteractor(authBloc: authBloc.get),

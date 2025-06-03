@@ -44,7 +44,7 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
     required this.selectedIndex,
     required this.onDestinationSelected,
   });
-  
+
   final Widget body;
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;

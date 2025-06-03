@@ -1,10 +1,4 @@
 {
-    "cSpell.words": [
-        "Firestore",
-        "Hani",
-        "lerp",
-        "screenutil"
-    ],
-    "cmake.configureOnOpen": false,
-    "bloc.newBlocTemplate.type": "simple"
+    "bloc.newBlocTemplate.type": "auto",
+    "bloc.newBlocTemplate.useSealedClasses": true
 }

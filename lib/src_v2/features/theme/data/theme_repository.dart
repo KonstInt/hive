@@ -17,5 +17,4 @@ class ThemeRepository {
   void dispose() async {
     _prefs = null;
   }
-
 }

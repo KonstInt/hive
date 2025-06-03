@@ -5,7 +5,8 @@ class StreamProxy<T> {
   final BehaviorSubject<T> _controller;
 
   /// Конструктор с [initialValue], чтобы сохранить первое значение для последующих подписчиков.
-  StreamProxy(T initialValue) : _controller = BehaviorSubject.seeded(initialValue);
+  StreamProxy(T initialValue)
+      : _controller = BehaviorSubject.seeded(initialValue);
 
   /// Поток, на который можно подписаться и получать значения.
   Stream<T> get stream => _controller.stream;

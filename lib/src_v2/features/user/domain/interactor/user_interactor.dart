@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'dart:io';
 
 import 'package:hive/src_v2/features/auth/domain/interactor/auth_interactor.dart';
 import 'package:hive/src_v2/features/user/domain/user_bloc/user_bloc.dart';
@@ -25,7 +24,11 @@ class UserInteractor {
   void updateUser({required UserModel userModel}) {
     final uuid = _authInteractor.getCurrentUuid();
     _userBloc.add(
-      UserUpdateEvent(uuid: uuid, userModel: userModel),
+      UserUpdateEvent(userModel: userModel),
     );
+  }
+
+  void signOut() {
+    _authInteractor.authOut();
   }
 }

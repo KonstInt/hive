@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 import '../shared/user_model.dart';
 
@@ -23,5 +21,4 @@ class UserApi {
         .update(user.toJson());
     return user;
   }
-
 }
